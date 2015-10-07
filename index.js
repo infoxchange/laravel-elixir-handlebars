@@ -26,13 +26,9 @@ Elixir.extend('templates', function (src, output) {
             // Wrap each template function in a call to Handlebars.template
             .pipe(wrap('Handlebars.template(<%= contents %>)'))
             
-            // Declare template functions as properties and sub-properties of exports
             .pipe(declare({
-                root: 'exports',
-                noRedeclare: true, // Avoid duplicate declarations
-                processName: function (filePath) {
-                    return declare.processNameByPath(filePath.substring(filePath.lastIndexOf('/')+1));
-                }
+                namespace: 'App.templates',
+                noRedeclare: true, // Avoid duplicate declarations 
             }))
 
             // Concatenate down to a single file
