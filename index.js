@@ -21,7 +21,10 @@ Elixir.extend('templates', function (src, output) {
 
         return gulp.src(paths.src.path)
             .on('error', onError)
-            .pipe(handlebars())
+            .pipe(handlebars({
+                // Use the version of handlebars defined by this package rather than the one defined by gulp-handlebars.
+                handlebars: require('handlebars'),
+            }))
 
             // Wrap each template function in a call to Handlebars.template
             .pipe(wrap('Handlebars.template(<%= contents %>)'))
